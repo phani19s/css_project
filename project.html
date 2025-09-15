@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electro Shop</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f0f9ff;
+      color: #333;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: #222;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav .brand {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #facc15;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #facc15;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #facc15;
+      color: #000;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #eab308;
+    }
+
+    .slider {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 450px;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%;
+      animation: slide 9s infinite;
+    }
+
+    .slides img {
+      width: 33.333%;
+      height: 500px;
+      object-fit: cover;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0%); }      
+      20% { transform: translateX(0%); }    
+
+      40% { transform: translateX(-33.333%); } 
+      60% { transform: translateX(-33.333%); } 
+
+      80% { transform: translateX(-66.666%); } 
+      95% { transform: translateX(-66.666%); } 
+
+      100% { transform: translateX(0%); }     
+    }
+
+    .section {
+      padding: 70px 50px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+    }
+
+    .section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .card img {
+      max-width: 100%;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .card .price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      align-items: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+    }
+
+    .contact-item img {
+      width: 25px;
+      height: 25px;
+    }
+               
+    #categories .card {
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    #categories .card img {
+      height: 80px;
+      margin-bottom: 15px;
+    }
+    #categories .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    #deal .card img {
+      height: 250px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+    #deal .card .price {
+      color: #d97706;
+      font-size: 1.2rem;
+    }
+    #deal .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+    #testimonials .card {
+      background: #f9fafb;
+      font-style: italic;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    #testimonials .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    #testimonials strong {
+      display: block;
+      margin-top: 10px;
+      color: #111;
+      font-style: normal;
+    }
+    #newsletter form {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    #newsletter input[type="email"] {
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+    }
+    #newsletter button:hover {
+      background: #d97706;
+      color: #fff;
+    }
+
+    #brands img {
+      filter: grayscale(100%);
+      transition: filter 0.3s, transform 0.3s;
+      height: 50px;
+    }
+    #brands img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.1);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      text-align: center;
+    }
+    .feature-item {
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .feature-item img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    .feature-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #222;
+    }
+    .feature-item p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+    .feature-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">Electro</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#products" class="btn">Shop Now</a>
+    </div>
+  </nav>
+
+  <div class="slider">
+    <div class="slides">
+      <img src="https://img.freepik.com/premium-vector/modern-style-square-colorful-web-banner-design-premium-vector_656447-13.jpg?semt=ais_hybrid&w=740&q=80" alt="Banner 1">
+      <img src="https://static.vecteezy.com/system/resources/thumbnails/002/478/302/small_2x/sale-electronics-banner-background-free-vector.jpg" alt="Banner 2">
+      <img src="https://www.shutterstock.com/image-photo/online-shopping-conceptecommerce-concept-icons-260nw-2531716265.jpg" alt="Banner 3">
+    </div>
+  </div>
+
+  <section class="section" id="products">
+    <h2>Our Products</h2>
+    <div class="products">
+      <div class="card">
+        <img src="https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-m33-1.jpg" alt="Phone">
+        <h3>Smartphone</h3>
+        <p>Latest Android device with 8GB RAM.</p>
+        <div class="price">₹19,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://saudewala.in/cdn/shop/collections/Laptop.jpg?v=1732216115&width=1296" alt="Laptop">
+        <h3>Laptop</h3>
+        <p>High-performance laptop for work & play.</p>
+        <div class="price">₹54,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/I/71L70bAl2KL._UF1000,1000_QL80_.jpg" alt="Headphones">
+        <h3>Headphones</h3>
+        <p>Noise-cancelling wireless headphones.</p>
+        <div class="price">₹4,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://www.gonoise.com/cdn/shop/files/1_c95e5561-4f66-413d-b143-42d31821e554.webp?v=1721392308" alt="Watch">
+        <h3>Smart Watch</h3>
+        <p>Track health & fitness with style.</p>
+        <div class="price">₹2,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://static.vecteezy.com/system/resources/previews/054/935/944/large_2x/dslr-camera-studio-shot-white-backgroundgraphy-photo.jpeg" alt="Camera">
+        <h3>DSLR Camera</h3>
+        <p>Capture stunning photos & videos.</p>
+        <div class="price">₹29,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://www.boat-lifestyle.com/cdn/shop/files/Stone_SpinXPro_1_b3503890-50f6-4cd1-9138-0bd90874391e_1300x.png?v=1709717442" alt="Speaker">
+        <h3>Bluetooth Speaker</h3>
+        <p>Portable speaker with deep bass.</p>
+        <div class="price">₹1,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://i.gadgets360cdn.com/large/ps4_slim__1556798795596.jpg" alt="Gaming Console">
+        <h3>Gaming Console</h3>
+        <p>Next-gen gaming experience at home.</p>
+        <div class="price">₹39,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://robosap.in/wp-content/uploads/2024/03/drone.png" alt="Drone">
+        <h3>Drone</h3>
+        <p>Fly high and capture aerial shots.</p>
+        <div class="price">₹24,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGqLhNzXkzRfyLaUJiIVB2A5JDSXeBa4f3Zg&s" alt="VR Headset">
+        <h3>VR Headset</h3>
+        <p>Immersive virtual reality experience.</p>
+        <div class="price">₹14,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://p3-ofp.static.pub/fes/cms/2023/02/22/5rhddw9d8vm9xfkexcwzvvi9lindg8985574.png" alt="Tablet">
+        <h3>Tablet</h3>
+        <p>Perfect for entertainment & work.</p>
+        <div class="price">₹12,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+            <div class="card">
+        <img src="https://www.lg.com/content/dam/channel/wcms/in/images/wm/fhp1412z9b/gallery/Basic-450.jpg/jcr:content/renditions/thum-350x350.jpeg" alt="Washing Machine">
+        <h3>Washing Machine</h3>
+        <p>Fully automatic front-load washing machine.</p>
+        <div class="price">₹32,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://dynamicdistributors.in/wp-content/uploads/2024/05/50dfedf4-854b-4f65-a19b-2bb35740bc9f_web-264x264.jpg" alt="Refrigerator">
+        <h3>Refrigerator</h3>
+        <p>Smart double-door refrigerator with inverter technology.</p>
+        <div class="price">₹28,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://www.lg.com/content/dam/channel/wcms/in/images/microwave-ovens/mc3286brum_dbkqiln_eail_in_c/gallery/MC3286BRUM-microwave-ovens-Front-view-D-01.jpg" alt="Microwave Oven">
+        <h3>Microwave Oven</h3>
+        <p>Convection microwave with smart cooking modes.</p>
+        <div class="price">₹11,499</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://img.freepik.com/premium-photo/air-conditioner-against-white-background_1048944-7232831.jpg?semt=ais_hybrid&w=740&q=80" alt="Air Conditioner">
+        <h3>Air Conditioner</h3>
+        <p>Split AC with energy-saving inverter technology.</p>
+        <div class="price">₹36,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/I/51lYbJhOmbL._UF1000,1000_QL80_.jpg" alt="Smart TV">
+        <h3>Smart LED TV</h3>
+        <p>4K Ultra HD Smart TV with HDR support.</p>
+        <div class="price">₹44,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="categories">
+    <h2>Shop by Categories</h2>
+    <div class="products">
+      <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyg7B_u8EeKxXicKMoz01xJG6sfTRKnPOofA&s" alt="Mobiles">
+        <h3>Mobiles & Tablets</h3>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Laptops">
+        <h3>Laptops & Desktops</h3>
+      </div>
+      <div class="card">
+        <img src="https://dressbarn.com/cdn/shop/articles/learning-the-different-types-of-accessories-dressbarn-105638.jpg?v=1711148381" alt="Accessories">
+        <h3>Accessories</h3>
+      </div>
+      <div class="card">
+        <img src="https://aws-obg-image-lb-3.tcl.com/content/dam/brandsite/global/news/5.jpg" alt="TV">
+        <h3>Smart TVs</h3>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section" id="bestsellers">
+    <h2>Best Sellers</h2>
+    <div class="products">
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/I/71L70bAl2KL._UF1000,1000_QL80_.jpg" alt="Headphones">
+        <h3>Wireless Headphones</h3>
+        <p>Top-rated noise-cancelling headphones.</p>
+        <div class="price">₹4,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-m33-1.jpg" alt="Smartphone">
+        <h3>Smartphone</h3>
+        <p>Bestselling Android device with high performance.</p>
+        <div class="price">₹19,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://saudewala.in/cdn/shop/collections/Laptop.jpg?v=1732216115&width=1296" alt="Laptop">
+        <h3>Gaming Laptop</h3>
+        <p>High-performance laptop for work & play.</p>
+        <div class="price">₹74,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="card">
+        <img src="https://www.gonoise.com/cdn/shop/files/1_c95e5561-4f66-413d-b143-42d31821e554.webp?v=1721392308" alt="Smart Watch">
+        <h3>Smart Watch</h3>
+        <p>Our customers’ favorite fitness gadget.</p>
+        <div class="price">₹2,999</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="deal">
+    <h2>Deal of the Day</h2>
+    <div class="products">
+   
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/I/71L70bAl2KL._UF1000,1000_QL80_.jpg" alt="Headphones">
+        <h3>Wireless Headphones</h3>
+        <p>Grab it now at a special price! Limited stock available.</p>
+        <div class="price"><del>₹6,999</del> ₹4,499</div>
+        <a href="#" class="btn">Shop Now</a>
+      </div>
+      <div class="card">
+        <img src="https://saudewala.in/cdn/shop/collections/Laptop.jpg?v=1732216115&width=1296" alt="Laptop">
+        <h3>Gaming Laptop</h3>
+        <p>Special offer on high-performance gaming laptop.</p>
+        <div class="price"><del>₹1,04,999</del> ₹74,999</div>
+        <a href="#" class="btn">Shop Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features" style="background:#fff; padding:40px 20px;">
+    <div class="features">
+      <div class="feature-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/61/61483.png" alt="Free Return">
+        <h4>FREE RETURN</h4>
+        <p>30 days money back guarantee!</p>
+      </div>
+      <div class="feature-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Free Shipping">
+        <h4>FREE SHIPPING</h4>
+        <p>Free shipping on all orders</p>
+      </div>
+      <div class="feature-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/126/126509.png" alt="Support">
+        <h4>SUPPORT 24/7</h4>
+        <p>We support online 24 hrs a day</p>
+      </div>
+      <div class="feature-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png" alt="Gift Card">
+        <h4>RECEIVE GIFT CARD</h4>
+        <p>Receive gifts on orders above ₹5,000</p>
+      </div>
+      <div class="feature-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" alt="Secure Payment">
+        <h4>SECURE PAYMENT</h4>
+        <p>We value your security</p>
+      </div>
+      <div class="feature-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Online Service">
+        <h4>ONLINE SERVICE</h4>
+        <p>Free return products in 30 days</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="products">
+      <div class="card">
+        <p>"Great quality and fast delivery! Highly recommend Electro Shop."</p>
+        <strong>- Anjali, Mumbai</strong>
+      </div>
+      <div class="card">
+        <p>"Amazing deals on gadgets, I got my laptop at a very low price."</p>
+        <strong>- Raj, Hyderabad</strong>
+      </div>
+      <div class="card">
+        <p>"Customer service is excellent. They helped me choose the right product."</p>
+        <strong>- Priya, Bangalore</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="newsletter" style="background:#facc15; color:#000;">
+    <h2>Subscribe to Our Newsletter</h2>
+    <p>Get the latest deals and offers directly in your inbox.</p>
+    <form style="margin-top:20px;">
+      <input type="email" placeholder="Enter your email" 
+             style="padding:12px; width:300px; border:none; border-radius:5px;">
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+  </section>
+
+  <section class="section" id="brands">
+    <h2>Our Trusted Brands</h2>
+    <div class="contact-info">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" alt="Samsung" height="40">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" height="40">
+      <img src="https://logos-world.net/wp-content/uploads/2022/07/Lenovo-Symbol.png" alt="Lenovo" height="40">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/768px-HP_logo_2012.svg.png" alt="HP" height="40">
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <h2>About Us</h2>
+    <p>
+      Electro Shop is your one-stop destination for the latest gadgets and electronics. 
+      We partner with top brands to bring you the best deals and fastest delivery.
+      Our mission is to make technology accessible and affordable for everyone.
+    </p>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
+        <span>support@electroshop.com</span>
+      </div>
+      <div class="contact-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Phone">
+        <span>+91 98765 43210</span>
+      </div>
+      <div class="contact-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/484/484167.png" alt="Address">
+        <span>123 Tech Street, Hyderabad, India</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Electro Shop. All rights reserved.</p>
+  </footer>
+</body>
+</html>
